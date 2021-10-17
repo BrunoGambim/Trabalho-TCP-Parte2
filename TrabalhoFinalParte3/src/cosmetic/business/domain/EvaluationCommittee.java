@@ -1,7 +1,10 @@
 package cosmetic.business.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import cosmetic.utils.comparators.UserComparator;
 
 public class EvaluationCommittee {
 	
@@ -27,4 +30,26 @@ public class EvaluationCommittee {
 		committeeMembers.add(user);
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public List<Product> getSubmittedProducts() {
+		return submittedProducts;
+	}
+	
+	public User getValidMember(Product product, User requester){
+		Collections.sort(this.committeeMembers,new UserComparator());
+		for(User member : this.committeeMembers) {
+			System.out.println(member.getId()+" "+member.getNumberOfEvaluations());
+		}
+		System.out.println(" ");
+		for(User member : this.committeeMembers) {
+			if(!product.isEvaluatedBy(member)) {
+				return member;
+			}
+		}
+		return null;
+	}
+	
 }

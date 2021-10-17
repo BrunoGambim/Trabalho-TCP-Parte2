@@ -7,21 +7,23 @@ public class User {
 	
 	private Long id;
 	private String name;
-	private String state;
-	private List<String> productCategories;
+	private State state;
+	private List<ProductCategory> productCategories;
+	private List<Evaluation> evaluations;
 	
-	public User(Long id, String name, String state) {
-		this(id,name,state,new ArrayList<String>());
+	public User(Long id, String name, State state) {
+		this(id,name,state,new ArrayList<ProductCategory>());
 	}
 
-	public User(Long id, String name, String state, List<String> productCategories) {
+	public User(Long id, String name, State state, List<ProductCategory> productCategories) {
 		this.id = id;
 		this.name = name;
 		this.state = state;
 		this.productCategories = productCategories;
+		this.evaluations = new ArrayList<>();
 	}
 	
-	public void addProductCategory(String category) {
+	public void addProductCategory(ProductCategory category) {
 		productCategories.add(category);
 	}
 
@@ -29,4 +31,30 @@ public class User {
 		return id;
 	}
 	
+	public Integer getNumberOfEvaluations() {
+		return evaluations.size();
+	}
+	
+	public void evaluate(Evaluation evaluation) {
+		evaluations.add(evaluation);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof User) {
+			User user = (User) obj;
+			return this.equals(user.getId());
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean equals(Long id) {
+		if(getId().equals(id)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 }

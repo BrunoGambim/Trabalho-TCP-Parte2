@@ -10,6 +10,8 @@ import cosmetic.ui.UIUtils;
 import cosmetic.ui.command.EvaluationCommand;
 import cosmetic.ui.command.ProductAllocationCommand;
 import cosmetic.ui.command.ProductSelectionCommand;
+import cosmetic.business.ProductAllocationService;
+import cosmetic.business.ProductManagementService;
 import cosmetic.business.domain.BusinessException;
 
 public class CosmeticTextInterface implements CosmeticInterface{
@@ -17,10 +19,10 @@ public class CosmeticTextInterface implements CosmeticInterface{
 	protected final Map<String, UIAction> actions;
 	private static final String EXIT = "E";
 	
-	public CosmeticTextInterface() {
+	public CosmeticTextInterface(ProductAllocationService productAllocationService, ProductManagementService productManagementService) {
 		this.actions = new LinkedHashMap<>();
 		this.addAction("A", new EvaluationCommand());
-		this.addAction("L", new ProductAllocationCommand());
+		this.addAction("L", new ProductAllocationCommand(productAllocationService));
 		this.addAction("S", new ProductSelectionCommand());
 	}
 	

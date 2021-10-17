@@ -1,7 +1,12 @@
 package cosmetic;
 
+import cosmetic.business.ProductAllocationService;
+import cosmetic.business.ProductManagementService;
 import cosmetic.ui.CosmeticInterface;
 import cosmetic.ui.impl.CosmeticTextInterface;
+import cosmetic.business.impl.ProductAllocationServiceImpl;
+import cosmetic.business.impl.ProductManagementServiceImpl;
+import cosmetic.database.Database;
 
 public class Cosmetic {
 
@@ -14,7 +19,12 @@ public class Cosmetic {
 	}
 	
 	public Cosmetic() {
-		cosmeticInterface = new CosmeticTextInterface();
+		Database database = new Database();
+
+		ProductAllocationService productAllocationService = new ProductAllocationServiceImpl(database);
+		ProductManagementService productManagementService = new ProductManagementServiceImpl();
+		
+		cosmeticInterface = new CosmeticTextInterface(productAllocationService,productManagementService);
 	}
 
 }

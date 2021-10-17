@@ -1,5 +1,7 @@
 package cosmetic.business.impl;
 
-public class ProductManagementServiceImpl {
+import cosmetic.business.ProductManagementService;
+
+public class ProductManagementServiceImpl implements ProductManagementService{
 
 }
