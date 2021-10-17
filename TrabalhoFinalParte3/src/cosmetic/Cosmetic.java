@@ -1,12 +1,12 @@
 package cosmetic;
 
-import cosmetic.ui.UIUtils;
+import cosmetic.ui.impl.CosmeticTextInterface;
 
 public class Cosmetic {
 
 	public static void main(String[] args) {
-		System.out.println(UIUtils.INSTANCE.readLong("teste.teste"));
-
+		CosmeticTextInterface ct = new CosmeticTextInterface();
+		ct.createAndShowUI();
 	}
 
 }
