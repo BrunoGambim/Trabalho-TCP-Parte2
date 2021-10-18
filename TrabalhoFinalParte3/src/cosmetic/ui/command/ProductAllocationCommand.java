@@ -4,6 +4,7 @@ import java.util.List;
 
 import cosmetic.ui.UIUtils;
 import cosmetic.business.ProductAllocationService;
+import cosmetic.business.domain.BusinessException;
 import cosmetic.business.domain.Evaluation;
 import cosmetic.business.domain.EvaluationCommittee;
 
@@ -16,7 +17,7 @@ public class ProductAllocationCommand extends Command{
 	}
 
 	@Override
-	public void execute() {
+	public void execute(){
 		final int MIN_NUMBER_OF_EVALUATORS = 2;
 		final int MAX_NUMBER_OF_EVALUATORS = 5;
 		UIUtils uiUtils = UIUtils.INSTANCE;
@@ -37,7 +38,7 @@ public class ProductAllocationCommand extends Command{
 			sb.append(getTextManager().getText("log.productAllocation", new String[] { "" + productId,"" + evaluatorId }, false));
 			sb.append("\n");
 		}
-		System.out.println(sb);
+		System.out.print(sb);
 	}
 
 }

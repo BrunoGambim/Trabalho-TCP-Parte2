@@ -22,21 +22,21 @@ public class ProductAllocationServiceImpl implements ProductAllocationService{
 
 	@Override
 	public List<Evaluation> allocateProducts(String committeeName, Integer numberOfEvaluators) {
-		List<Evaluation> evaluations = new ArrayList<>();
+		List<Evaluation> newEvaluations = new ArrayList<>();
 		try {
 			EvaluationCommittee evaluationCommittee = this.database.getEvaluationCommitteesByName(committeeName);
 			List<Product> products = evaluationCommittee.getSubmittedProducts();	
 			for(int i = 0; i < numberOfEvaluators; i++) {
 				Collections.sort(products,new ProductComparator());
 				for(Product product : products) {
-					User evaluator = evaluationCommittee.getValidMember(product, null);
-					evaluations.add(new Evaluation(product, evaluator));
+					User evaluator = evaluationCommittee.getValidMember(product);
+					newEvaluations.add(new Evaluation(product, evaluator));
 				}
 			}
 		} catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		return evaluations;
+		return newEvaluations;
 	}
 
 }

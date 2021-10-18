@@ -24,6 +24,14 @@ public class Product {
 	public Long getId() {
 		return id;
 	}
+	
+	private ProductCategory getCategory() {
+		return category;
+	}
+
+	private User getRequester() {
+		return requester;
+	}
 
 	private void setEvaluationCommittee(EvaluationCommittee evaluationCommittee) {
 		evaluationCommittee.submitProducts(this);
@@ -41,6 +49,15 @@ public class Product {
 			}
 		}
 		return false;
+	}
+
+	public boolean canBeEvaluatedBy(User user) {
+		System.out.println("isEvaluatedBy: "+ isEvaluatedBy(user) 
+		+" usuarioIgual:"+user.equals(this.getRequester())
+		+" mesmoEstado:"+user.isInTheSameStateAs(this.getRequester())
+		+" interessadoEm:"+user.isInterestedIn(this.getCategory()));
+		
+		return (!isEvaluatedBy(user)) && (!user.equals(this.getRequester())) && (!user.isInTheSameStateAs(this.getRequester())) && user.isInterestedIn(this.getCategory());
 	}
 	
 }

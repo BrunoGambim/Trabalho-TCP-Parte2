@@ -8,7 +8,7 @@ public class User {
 	private Long id;
 	private String name;
 	private State state;
-	private List<ProductCategory> productCategories;
+	private List<ProductCategory> interestCategories;
 	private List<Evaluation> evaluations;
 	
 	public User(Long id, String name, State state) {
@@ -19,12 +19,12 @@ public class User {
 		this.id = id;
 		this.name = name;
 		this.state = state;
-		this.productCategories = productCategories;
+		this.interestCategories = productCategories;
 		this.evaluations = new ArrayList<>();
 	}
 	
-	public void addProductCategory(ProductCategory category) {
-		productCategories.add(category);
+	public void addProductCategory(ProductCategory productCategory) {
+		interestCategories.add(productCategory);
 	}
 
 	public Long getId() {
@@ -35,8 +35,25 @@ public class User {
 		return evaluations.size();
 	}
 	
+	public State getState() {
+		return state;
+	}
+
 	public void evaluate(Evaluation evaluation) {
 		evaluations.add(evaluation);
+	}
+	
+	public boolean isInTheSameStateAs(User user) {
+		return this.getState().equals(user.getState());
+	}
+	
+	public boolean isInterestedIn(ProductCategory productCategory) {
+		for(ProductCategory interestCategory : interestCategories) {
+			if(productCategory.equals(interestCategory)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
