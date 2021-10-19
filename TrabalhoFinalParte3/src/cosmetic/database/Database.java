@@ -1,10 +1,12 @@
 package cosmetic.database;
 
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import cosmetic.business.domain.User;
+import cosmetic.business.domain.BusinessException;
 import cosmetic.business.domain.Evaluation;
 import cosmetic.business.domain.EvaluationCommittee;
 import cosmetic.business.domain.Product;
@@ -17,11 +19,11 @@ public class Database {
 	private Map<String,EvaluationCommittee> evaluationCommittees; 
 	private Map<Long,Product> products;
 	
-	public Database() {
+	public Database() throws BusinessException {
 		this(true);
 	}
 
-	public Database(boolean initData) {
+	public Database(boolean initData) throws BusinessException {
 		this.users = new HashMap<>();
 		this.evaluationCommittees = new HashMap<>();
 		this.products = new HashMap<>();
@@ -30,11 +32,23 @@ public class Database {
 		}
 	}
 	
-	public EvaluationCommittee getEvaluationCommitteesByName(String name){
+	public Collection<Product> getAllProducts(){
+		return this.products.values();
+	}
+	
+	public Product getProductById(Long id) {
+		return this.products.get(id);
+	}
+	
+	public User getUserById(Long id) {
+		return this.users.get(id);
+	}
+	
+	public EvaluationCommittee getEvaluationCommitteeByName(String name){
 		return evaluationCommittees.get(name);
 	}
 
-	private void initData() {
+	private void initData() throws BusinessException {
 		State RS = new State("RS");
 		State SP = new State("SP");
 		State CE = new State("CE");

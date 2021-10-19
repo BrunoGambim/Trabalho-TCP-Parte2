@@ -25,12 +25,37 @@ public class Product {
 		return id;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	private ProductCategory getCategory() {
 		return category;
 	}
 
 	private User getRequester() {
 		return requester;
+	}
+	
+	public List<Evaluation> getEvaluations() {
+		return new ArrayList<>(evaluations);
+	}
+	
+	public List<User> getEvaluators(){
+		List<User> evaluators = new ArrayList<>();
+		for(Evaluation evaluation : this.evaluations) {
+			evaluators.add(evaluation.getEvaluator());
+		}
+		return evaluators;
+	}
+	
+	public Evaluation getEvaluation(User evaluator) throws BusinessException {
+		for(Evaluation evaluation : this.evaluations) {
+			if(evaluator.equals(evaluation.getEvaluator())) {
+				return evaluation;
+			}
+		}
+		throw new BusinessException("Avaliador inválido");
 	}
 
 	private void setEvaluationCommittee(EvaluationCommittee evaluationCommittee) {
@@ -42,22 +67,46 @@ public class Product {
 		evaluations.add(evaluation);
 	}
 	
-	public boolean isEvaluatedBy(User user) {
-		for(Evaluation evaluation : evaluations) {
+	public Float getEvalutionsMean() throws BusinessException {
+		float mean = 0;
+		for(Evaluation evaluation : this.evaluations) {
+			if(evaluation.getRating() != null) {
+				mean += evaluation.getRating();
+			}else {
+				throw new BusinessException("Produto não recebeu todas as avaliações");
+			}
+		}
+		if(getNumberOfEvaluations() > 0) {
+			mean = mean / getNumberOfEvaluations();
+		}else {
+			throw new BusinessException("Produto não foi alocado");
+		}
+		return mean;
+	}
+	
+	public boolean isAlocated(int numberOfEvaluators) {
+		return getNumberOfEvaluations() >= numberOfEvaluators;
+	}
+	
+	private boolean isEvaluatedBy(User user) {
+		for(Evaluation evaluation : this.evaluations) {
 			if(evaluation.getEvaluator().equals(user)) {
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	public Integer getNumberOfEvaluations() {
+		return this.evaluations.size();
+	}
 
-	public boolean canBeEvaluatedBy(User user) {
-		System.out.println("isEvaluatedBy: "+ isEvaluatedBy(user) 
-		+" usuarioIgual:"+user.equals(this.getRequester())
-		+" mesmoEstado:"+user.isInTheSameStateAs(this.getRequester())
-		+" interessadoEm:"+user.isInterestedIn(this.getCategory()));
-		
+	public boolean canBeEvaluatedBy(User user) {	
 		return (!isEvaluatedBy(user)) && (!user.equals(this.getRequester())) && (!user.isInTheSameStateAs(this.getRequester())) && user.isInterestedIn(this.getCategory());
 	}
 	
+	public Evaluation alocate() throws BusinessException {
+		User evaluator = evaluationCommittee.getValidMember(this);
+		return new Evaluation(this, evaluator);
+	}
 }

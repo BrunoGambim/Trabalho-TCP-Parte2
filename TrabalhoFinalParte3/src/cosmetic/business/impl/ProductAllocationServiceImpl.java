@@ -5,12 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 import cosmetic.business.ProductAllocationService;
+import cosmetic.business.domain.BusinessException;
 import cosmetic.business.domain.Evaluation;
 import cosmetic.business.domain.EvaluationCommittee;
 import cosmetic.business.domain.Product;
 import cosmetic.business.domain.User;
 import cosmetic.database.Database;
-import cosmetic.utils.comparators.ProductComparator;
+import cosmetic.utils.comparators.ProductComparatorById;
 
 public class ProductAllocationServiceImpl implements ProductAllocationService{
 	
@@ -21,20 +22,15 @@ public class ProductAllocationServiceImpl implements ProductAllocationService{
 	}
 
 	@Override
-	public List<Evaluation> allocateProducts(String committeeName, Integer numberOfEvaluators) {
+	public List<Evaluation> allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException {
 		List<Evaluation> newEvaluations = new ArrayList<>();
-		try {
-			EvaluationCommittee evaluationCommittee = this.database.getEvaluationCommitteesByName(committeeName);
-			List<Product> products = evaluationCommittee.getSubmittedProducts();	
-			for(int i = 0; i < numberOfEvaluators; i++) {
-				Collections.sort(products,new ProductComparator());
-				for(Product product : products) {
-					User evaluator = evaluationCommittee.getValidMember(product);
-					newEvaluations.add(new Evaluation(product, evaluator));
-				}
+		EvaluationCommittee evaluationCommittee = this.database.getEvaluationCommitteeByName(committeeName);
+		List<Product> alocationSet = evaluationCommittee.getSubmittedProducts();	
+		while(!evaluationCommittee.areAllProductsAlocated(numberOfEvaluators)) {
+			Collections.sort(alocationSet,new ProductComparatorById());
+			for(Product product : alocationSet) {
+				newEvaluations.add(product.alocate());
 			}
-		} catch(Exception e){
-			System.out.println(e.getMessage());
 		}
 		return newEvaluations;
 	}

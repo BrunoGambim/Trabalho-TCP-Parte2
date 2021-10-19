@@ -21,9 +21,9 @@ public class CosmeticTextInterface implements CosmeticInterface{
 	
 	public CosmeticTextInterface(ProductAllocationService productAllocationService, ProductManagementService productManagementService) {
 		this.actions = new LinkedHashMap<>();
-		this.addAction("A", new EvaluationCommand());
+		this.addAction("A", new EvaluationCommand(productManagementService));
 		this.addAction("L", new ProductAllocationCommand(productAllocationService));
-		this.addAction("S", new ProductSelectionCommand());
+		this.addAction("S", new ProductSelectionCommand(productManagementService));
 	}
 	
 	private void addAction(String key, UIAction action) {

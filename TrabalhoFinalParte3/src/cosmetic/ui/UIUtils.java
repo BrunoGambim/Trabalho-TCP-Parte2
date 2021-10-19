@@ -107,6 +107,23 @@ public class UIUtils {
 		}
 		return value;
 	}
+	
+	public Float readFloat(String field) {
+		Float value = null;
+		while (value == null) {
+			try {
+				System.out.print(textManager.getText(field) + ": ");
+				value = new Float(reader.readLine());
+			} catch (NumberFormatException nfe) {
+				System.out.println(textManager
+						.getText("exception.double.format"));
+
+			} catch (Exception e) {
+				handleUnexceptedError(e);
+			}
+		}
+		return value;
+	}
 
 	public Integer readInteger(String field) {
 		Integer value = null;

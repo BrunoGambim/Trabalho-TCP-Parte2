@@ -2,6 +2,7 @@ package cosmetic;
 
 import cosmetic.business.ProductAllocationService;
 import cosmetic.business.ProductManagementService;
+import cosmetic.business.domain.BusinessException;
 import cosmetic.ui.CosmeticInterface;
 import cosmetic.ui.impl.CosmeticTextInterface;
 import cosmetic.business.impl.ProductAllocationServiceImpl;
@@ -19,10 +20,15 @@ public class Cosmetic {
 	}
 	
 	public Cosmetic() {
-		Database database = new Database();
+		Database database = null;
+		try {
+			database = new Database();
+		} catch (BusinessException e) {
+			System.out.println(e.getMessage());
+		}
 
 		ProductAllocationService productAllocationService = new ProductAllocationServiceImpl(database);
-		ProductManagementService productManagementService = new ProductManagementServiceImpl();
+		ProductManagementService productManagementService = new ProductManagementServiceImpl(database);
 		
 		cosmeticInterface = new CosmeticTextInterface(productAllocationService,productManagementService);
 	}

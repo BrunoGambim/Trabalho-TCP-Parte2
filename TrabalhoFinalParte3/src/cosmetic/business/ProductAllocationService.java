@@ -2,10 +2,11 @@ package cosmetic.business;
 
 import java.util.List;
 
+import cosmetic.business.domain.BusinessException;
 import cosmetic.business.domain.Evaluation;
 
 public interface ProductAllocationService {
 
-	List<Evaluation> allocateProducts(String committeeName, Integer numberOfEvaluators);
+	List<Evaluation> allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException;
 
 }

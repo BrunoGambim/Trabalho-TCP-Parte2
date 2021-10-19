@@ -17,7 +17,7 @@ public class ProductAllocationCommand extends Command{
 	}
 
 	@Override
-	public void execute(){
+	public void execute() throws BusinessException{
 		final int MIN_NUMBER_OF_EVALUATORS = 2;
 		final int MAX_NUMBER_OF_EVALUATORS = 5;
 		UIUtils uiUtils = UIUtils.INSTANCE;

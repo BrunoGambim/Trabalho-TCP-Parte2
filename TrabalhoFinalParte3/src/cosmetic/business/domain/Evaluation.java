@@ -9,7 +9,7 @@ public class Evaluation {
 	private User evaluator;
 	private Float rating;
 
-	public Evaluation(Product product, User evaluator, Float rating) {
+	public Evaluation(Product product, User evaluator, Float rating) throws BusinessException {
 		setRating(rating);
 		setProduct(product);
 		setEvaluator(evaluator);
@@ -24,9 +24,11 @@ public class Evaluation {
 		return rating;
 	}
 
-	private void setRating(Float rating) {
+	public void setRating(Float rating) throws BusinessException {
 		if(rating <= HIGHESTRATING  && rating >= LOWESTRATING) {
 			this.rating = rating;
+		}else {
+			throw new BusinessException("Nota invalida para avaliação");
 		}
 	}
 

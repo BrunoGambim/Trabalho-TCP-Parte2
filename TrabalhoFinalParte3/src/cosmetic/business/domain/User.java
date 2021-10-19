@@ -31,6 +31,10 @@ public class User {
 		return id;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	public Integer getNumberOfEvaluations() {
 		return evaluations.size();
 	}

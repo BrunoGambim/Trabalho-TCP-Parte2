@@ -35,19 +35,26 @@ public class EvaluationCommittee {
 	}
 
 	public List<Product> getSubmittedProducts() {
-		return submittedProducts;
+		return new ArrayList<Product>(submittedProducts);
 	}
 	
 	public User getValidMember(Product product) throws BusinessException{
 		Collections.sort(this.committeeMembers,new UserComparator());
-		System.out.println("Produto id: "+ product.getId());
 		for(User member : this.committeeMembers) {
-			System.out.println("Membro: "+ member.getId());
 			if(product.canBeEvaluatedBy(member)) {
 				return member;
 			}
 		}
 		throw new BusinessException("Usuários insuficientes no comitê para a avaliação");
+	}
+
+	public boolean areAllProductsAlocated(Integer numberOfEvaluators) {
+		for(Product product : submittedProducts) {
+			if(!product.isAlocated(numberOfEvaluators)) {
+				return false;
+			}
+		}
+		return true;
 	} 
 	
 }
