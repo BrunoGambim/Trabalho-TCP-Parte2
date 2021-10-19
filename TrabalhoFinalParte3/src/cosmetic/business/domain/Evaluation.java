@@ -28,7 +28,7 @@ public class Evaluation {
 		if(rating <= HIGHESTRATING  && rating >= LOWESTRATING) {
 			this.rating = rating;
 		}else {
-			throw new BusinessException("Nota invalida para avaliação");
+			throw new BusinessException("exception.invalid.evaluation");
 		}
 	}
 

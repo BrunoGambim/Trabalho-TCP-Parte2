@@ -24,7 +24,7 @@ public class ProductAllocationServiceImpl implements ProductAllocationService{
 	@Override
 	public List<Evaluation> allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException {
 		List<Evaluation> newEvaluations = new ArrayList<>();
-		EvaluationCommittee evaluationCommittee = this.database.getEvaluationCommitteeByName(committeeName);
+		EvaluationCommittee evaluationCommittee = getEvaluationCommitteeByName(committeeName);
 		List<Product> alocationSet = evaluationCommittee.getSubmittedProducts();	
 		while(!evaluationCommittee.areAllProductsAlocated(numberOfEvaluators)) {
 			Collections.sort(alocationSet,new ProductComparatorById());
@@ -33,6 +33,15 @@ public class ProductAllocationServiceImpl implements ProductAllocationService{
 			}
 		}
 		return newEvaluations;
+	}
+	
+	private EvaluationCommittee getEvaluationCommitteeByName(String committeeName) throws BusinessException {
+		EvaluationCommittee evaluationCommittee = this.database.getEvaluationCommitteeByName(committeeName);
+		if(evaluationCommittee != null) {
+			return evaluationCommittee;
+		}else {
+			throw new BusinessException("exception.invalid.evaluationCommittee");
+		}
 	}
 
 }

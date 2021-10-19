@@ -45,7 +45,7 @@ public class EvaluationCommittee {
 				return member;
 			}
 		}
-		throw new BusinessException("Usuários insuficientes no comitê para a avaliação");
+		throw new BusinessException("exception.insufficientCommitteMembers");
 	}
 
 	public boolean areAllProductsAlocated(Integer numberOfEvaluators) {

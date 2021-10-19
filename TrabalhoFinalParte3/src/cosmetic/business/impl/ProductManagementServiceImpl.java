@@ -27,20 +27,30 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 	}
 
 	@Override
-	public Product getProductById(Long id) {
-		return this.database.getProductById(id);
+	public Product getProductById(Long id) throws BusinessException {
+		Product product = this.database.getProductById(id);
+		if(product != null) {
+			return product;
+		}else {
+			throw new BusinessException("exception.invalid.product");
+		}
 	}
 	
 	@Override
-	public EvaluationCommittee getEvaluationCommitteeByName(String committeeName) {
-		return this.database.getEvaluationCommitteeByName(committeeName);
+	public EvaluationCommittee getEvaluationCommitteeByName(String committeeName) throws BusinessException{
+		EvaluationCommittee evaluationCommittee = this.database.getEvaluationCommitteeByName(committeeName);
+		if(evaluationCommittee != null) {
+			return evaluationCommittee;
+		}else {
+			throw new BusinessException("exception.invalid.evaluationCommittee");
+		}
 	}
 
 	@Override
-	public void evaluateProduct(Product choosenProduct, Long evaluatorId, Float nota) throws BusinessException {
+	public void evaluateProduct(Product choosenProduct, Long evaluatorId, Float rating) throws BusinessException {
 		User evaluator = this.database.getUserById(evaluatorId);
 		Evaluation evaluation = choosenProduct.getEvaluation(evaluator);
-		evaluation.setRating(nota);
+		evaluation.setRating(rating);
 	}
 
 	@Override

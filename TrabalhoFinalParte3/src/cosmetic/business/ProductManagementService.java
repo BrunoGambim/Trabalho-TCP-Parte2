@@ -11,11 +11,11 @@ public interface ProductManagementService {
 
 	Collection<Product> getAllProdutcs();
 
-	Product getProductById(Long productId);
+	Product getProductById(Long productId) throws BusinessException;
 
 	void evaluateProduct(Product choosenProduct, Long evaluatorId, Float nota) throws BusinessException;
 
-	EvaluationCommittee getEvaluationCommitteeByName(String committeeName);
+	EvaluationCommittee getEvaluationCommitteeByName(String committeeName) throws BusinessException;
 
 	List<Product> getUnacceptableProducts(EvaluationCommittee evaluationCommittee) throws BusinessException;
 

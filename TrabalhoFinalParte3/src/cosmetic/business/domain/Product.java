@@ -55,7 +55,7 @@ public class Product {
 				return evaluation;
 			}
 		}
-		throw new BusinessException("Avaliador inválido");
+		throw new BusinessException("exception.invalid.evaluator");
 	}
 
 	private void setEvaluationCommittee(EvaluationCommittee evaluationCommittee) {
@@ -73,13 +73,13 @@ public class Product {
 			if(evaluation.getRating() != null) {
 				mean += evaluation.getRating();
 			}else {
-				throw new BusinessException("Produto não recebeu todas as avaliações");
+				throw new BusinessException("exception.incompleteProductEvaluations");
 			}
 		}
 		if(getNumberOfEvaluations() > 0) {
 			mean = mean / getNumberOfEvaluations();
 		}else {
-			throw new BusinessException("Produto não foi alocado");
+			throw new BusinessException("exception.notAllocatedProduct");
 		}
 		return mean;
 	}
