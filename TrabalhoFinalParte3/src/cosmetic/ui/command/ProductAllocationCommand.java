@@ -6,7 +6,6 @@ import cosmetic.ui.UIUtils;
 import cosmetic.business.ProductAllocationService;
 import cosmetic.business.domain.BusinessException;
 import cosmetic.business.domain.Evaluation;
-import cosmetic.business.domain.EvaluationCommittee;
 
 public class ProductAllocationCommand extends Command{
 	
@@ -24,8 +23,11 @@ public class ProductAllocationCommand extends Command{
 		
 		String committeeName = uiUtils.readString("message.choose.committee");
 		Integer numberOfEvaluators = uiUtils.readInteger("message.choose.numberOfEvaluators", MIN_NUMBER_OF_EVALUATORS, MAX_NUMBER_OF_EVALUATORS);
+		List<Evaluation> newEvaluations = this.productAllocationService.allocateProducts(committeeName,numberOfEvaluators);
+	}
+	
+	private void printEvaluationsLog(List<Evaluation> evaluations) {
 		System.out.println(getTextManager().getText("log.start.allocation"));
-		List<Evaluation> evaluations = this.productAllocationService.allocateProducts(committeeName,numberOfEvaluators);
 		printEvaluations(evaluations);
 		System.out.println(getTextManager().getText("log.end.allocation"));
 	}

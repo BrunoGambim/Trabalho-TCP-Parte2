@@ -9,7 +9,6 @@ import cosmetic.business.domain.BusinessException;
 import cosmetic.business.domain.Evaluation;
 import cosmetic.business.domain.EvaluationCommittee;
 import cosmetic.business.domain.Product;
-import cosmetic.business.domain.User;
 import cosmetic.database.Database;
 import cosmetic.utils.comparators.ProductComparatorById;
 

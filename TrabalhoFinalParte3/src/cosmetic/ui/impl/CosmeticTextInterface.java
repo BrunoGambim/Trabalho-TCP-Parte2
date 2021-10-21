@@ -43,7 +43,7 @@ public class CosmeticTextInterface implements CosmeticInterface{
 					command.execute();
 				} catch (BusinessException be) {
 					System.out.println(uiUtils.getTextManager().getText(
-							be.getMessage(), be.getArgs()));
+							be.getMessage()));
 				} catch (Exception e) {
 					uiUtils.handleUnexceptedError(e);
 				}
