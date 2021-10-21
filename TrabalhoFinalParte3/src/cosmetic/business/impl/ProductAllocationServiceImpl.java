@@ -27,10 +27,11 @@ public class ProductAllocationServiceImpl implements ProductAllocationService{
 	public String allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException {
 		EvaluationCommittee evaluationCommittee = getEvaluationCommitteeByName(committeeName);
 		List<Product> alocationSet = evaluationCommittee.getSubmittedProducts();
+		this.logBuilder.startLog();
 		try {
-			while(!evaluationCommittee.areAllProductsAlocated(numberOfEvaluators)) {
+			do {
 				allocateProductList(alocationSet);
-			}
+			} while(!evaluationCommittee.areAllProductsAlocated(numberOfEvaluators));
 		} catch (BusinessException be) {
 			this.logBuilder.addExceptionLine(be.getMessage());
 		}

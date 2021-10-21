@@ -43,7 +43,7 @@ public class User {
 		return state;
 	}
 
-	public void evaluate(Evaluation evaluation) {
+	public void addEvaluation(Evaluation evaluation) {
 		evaluations.add(evaluation);
 	}
 	
@@ -76,6 +76,19 @@ public class User {
 		}else {
 			return false;
 		}
+	}
+	
+	public void evaluate(Product product, Float rating) throws BusinessException {
+		getEvaluation(product).setRating(rating);
+	}
+	
+	private Evaluation getEvaluation(Product product) throws BusinessException {
+		for(Evaluation evaluation : this.evaluations) {
+			if(product.equals(evaluation.getProduct())) {
+				return evaluation;
+			}
+		}
+		throw new BusinessException("exception.invalid.product");
 	}
 
 }

@@ -8,4 +8,6 @@ public interface LogBuilder {
 	
 	public String getText();
 	
+	public void startLog();
+	
 }

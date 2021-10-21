@@ -10,8 +10,7 @@ public class AllocationLogBuilder implements LogBuilder{
 	
 	public AllocationLogBuilder(){
 		this.textManager = UIUtils.INSTANCE.getTextManager();
-		this.log = new StringBuffer();
-		this.log.append(this.textManager.getText("log.start.allocation")).append("\n");
+		startLog();
 	}
 
 	@Override
@@ -27,6 +26,12 @@ public class AllocationLogBuilder implements LogBuilder{
 	@Override
 	public String getText() {
 		return this.log.append(this.textManager.getText("log.end.allocation")).toString();
+	}
+
+	@Override
+	public void startLog() {
+		this.log = new StringBuffer();
+		this.log.append(this.textManager.getText("log.start.allocation")).append("\n");
 	}
 
 }

@@ -39,7 +39,7 @@ public class Evaluation {
 
 	private void setEvaluator(User evaluator) {
 		this.evaluator = evaluator;
-		evaluator.evaluate(this);
+		evaluator.addEvaluation(this);
 	}
 	
 	public User getEvaluator() {

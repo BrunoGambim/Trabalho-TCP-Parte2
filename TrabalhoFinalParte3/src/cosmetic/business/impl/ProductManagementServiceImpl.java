@@ -49,8 +49,7 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 	@Override
 	public void evaluateProduct(Product choosenProduct, Long evaluatorId, Float rating) throws BusinessException {
 		User evaluator = this.database.getUserById(evaluatorId);
-		Evaluation evaluation = choosenProduct.getEvaluation(evaluator);
-		evaluation.setRating(rating);
+		evaluator.evaluate(choosenProduct, rating);
 	}
 
 	@Override

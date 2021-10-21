@@ -37,25 +37,12 @@ public class Product {
 		return requester;
 	}
 	
-	public List<Evaluation> getEvaluations() {
-		return new ArrayList<>(evaluations);
-	}
-	
 	public List<User> getEvaluators(){
 		List<User> evaluators = new ArrayList<>();
 		for(Evaluation evaluation : this.evaluations) {
 			evaluators.add(evaluation.getEvaluator());
 		}
 		return evaluators;
-	}
-	
-	public Evaluation getEvaluation(User evaluator) throws BusinessException {
-		for(Evaluation evaluation : this.evaluations) {
-			if(evaluator.equals(evaluation.getEvaluator())) {
-				return evaluation;
-			}
-		}
-		throw new BusinessException("exception.invalid.evaluator");
 	}
 
 	private void setEvaluationCommittee(EvaluationCommittee evaluationCommittee) {
