@@ -50,7 +50,7 @@ public class EvaluationCommittee {
 
 	public boolean areAllProductsAlocated(Integer numberOfEvaluators) {
 		for(Product product : submittedProducts) {
-			if(!product.isAlocated(numberOfEvaluators)) {
+			if(!product.isAllocated(numberOfEvaluators)) {
 				return false;
 			}
 		}

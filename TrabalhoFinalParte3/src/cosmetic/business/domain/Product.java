@@ -84,7 +84,7 @@ public class Product {
 		return mean;
 	}
 	
-	public boolean isAlocated(int numberOfEvaluators) {
+	public boolean isAllocated(int numberOfEvaluators) {
 		return getNumberOfEvaluations() >= numberOfEvaluators;
 	}
 	
@@ -105,8 +105,9 @@ public class Product {
 		return (!isEvaluatedBy(user)) && (!user.equals(this.getRequester())) && (!user.isInTheSameStateAs(this.getRequester())) && user.isInterestedIn(this.getCategory());
 	}
 	
-	public Evaluation alocate() throws BusinessException {
+	public User allocate() throws BusinessException {
 		User evaluator = evaluationCommittee.getValidMember(this);
-		return new Evaluation(this, evaluator);
+		new Evaluation(this, evaluator);
+		return evaluator;
 	}
 }
