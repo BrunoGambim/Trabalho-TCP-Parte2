@@ -36,9 +36,10 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 	}
 	
 	@Override
-	public void allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException {
+	public EvaluationCommittee allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException {
 		EvaluationCommittee evaluationCommittee = getEvaluationCommitteeByName(committeeName);
 		evaluationCommittee.allocateProducts(numberOfEvaluators);
+		return evaluationCommittee;
 	}
 	
 	@Override
