@@ -7,6 +7,7 @@ public class AllocationLogBuilder implements LogBuilder{
 	
 	private TextManager textManager;
 	private StringBuffer log;
+	public static final AllocationLogBuilder INSTANCE = new AllocationLogBuilder();
 	
 	public AllocationLogBuilder(){
 		this.textManager = UIUtils.INSTANCE.getTextManager();
@@ -24,8 +25,8 @@ public class AllocationLogBuilder implements LogBuilder{
 	}
 
 	@Override
-	public String getText() {
-		return this.log.append(this.textManager.getText("log.end.allocation")).toString();
+	public void finishLog() {
+		System.out.println(this.log.append(this.textManager.getText("log.end.allocation")).toString());
 	}
 
 	@Override

@@ -5,11 +5,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class UIUtils {
-
 	public static final UIUtils INSTANCE = new UIUtils();
 	public static final String PROPERTY_RESOURCE_BUNDLE = "cosmetic.resources.globalMessages";
-
-
 	private final BufferedReader reader;
 	private final TextManager textManager;
 

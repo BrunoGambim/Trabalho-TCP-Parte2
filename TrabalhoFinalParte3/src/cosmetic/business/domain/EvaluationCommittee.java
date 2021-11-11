@@ -26,7 +26,7 @@ public class EvaluationCommittee {
 		this.name = name;
 		this.submittedProducts = submittedProducts;
 		this.committeeMembers = committeeMembers;
-		this.logBuilder = new AllocationLogBuilder();
+		this.logBuilder = AllocationLogBuilder.INSTANCE;
 	}
 	
 	public void submitProducts(Product product) {
@@ -68,7 +68,7 @@ public class EvaluationCommittee {
 		} catch (BusinessException be) {
 			this.logBuilder.addExceptionLine(be.getMessage());
 		}
-		this.logBuilder.getText();
+		this.logBuilder.finishLog();
 	}
 	
 	private boolean isValidNumberOfEvaluators(Integer numberOfEvaluators) {

@@ -6,7 +6,7 @@ public interface LogBuilder {
 	
 	public void addExceptionLine(String message);
 	
-	public String getText();
+	public void finishLog();
 	
 	public void startLog();
 	
