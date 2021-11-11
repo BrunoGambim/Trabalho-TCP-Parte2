@@ -21,5 +21,6 @@ public interface ProductManagementService {
 
 	List<Product> getAcceptableProducts(EvaluationCommittee evaluationCommittee) throws BusinessException;
 
+	void allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException;
 
 }

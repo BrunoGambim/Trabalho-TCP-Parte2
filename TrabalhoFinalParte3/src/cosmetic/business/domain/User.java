@@ -70,7 +70,7 @@ public class User {
 		}
 	}
 	
-	public boolean equals(Long id) {
+	private boolean equals(Long id) {
 		if(getId().equals(id)) {
 			return true;
 		}else {

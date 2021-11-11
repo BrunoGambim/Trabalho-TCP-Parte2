@@ -1,15 +1,15 @@
 package cosmetic.ui.command;
 
 import cosmetic.ui.UIUtils;
-import cosmetic.business.ProductAllocationService;
+import cosmetic.business.ProductManagementService;
 import cosmetic.business.domain.BusinessException;
 
 public class ProductAllocationCommand extends Command{
 	
-	private ProductAllocationService productAllocationService;
+	private ProductManagementService productManagementService;
 
-	public ProductAllocationCommand(ProductAllocationService productAllocationService) {
-		this.productAllocationService = productAllocationService;
+	public ProductAllocationCommand(ProductManagementService productManagementService) {
+		this.productManagementService = productManagementService;
 	}
 
 	@Override
@@ -20,8 +20,7 @@ public class ProductAllocationCommand extends Command{
 		
 		String committeeName = uiUtils.readString("message.choose.committee");
 		Integer numberOfEvaluators = uiUtils.readInteger("message.choose.numberOfEvaluators", MIN_NUMBER_OF_EVALUATORS, MAX_NUMBER_OF_EVALUATORS);
-		String log = this.productAllocationService.allocateProducts(committeeName,numberOfEvaluators);
-		System.out.println(log);
+		this.productManagementService.allocateProducts(committeeName,numberOfEvaluators);
 	}
 
 }

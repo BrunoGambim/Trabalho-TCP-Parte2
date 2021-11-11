@@ -1,35 +1,22 @@
-package cosmetic.database;
-
+package cosmetic.business.domain;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import cosmetic.business.domain.User;
-import cosmetic.business.domain.BusinessException;
-import cosmetic.business.domain.Evaluation;
-import cosmetic.business.domain.EvaluationCommittee;
-import cosmetic.business.domain.Product;
-import cosmetic.business.domain.ProductCategory;
-import cosmetic.business.domain.State;
+import cosmetic.database.Database;
 
-public class DatabaseImpl implements Database{
-	
+public class DatabaseForTests implements Database{
 	private Map<Long,User> users;
 	private Map<String,EvaluationCommittee> evaluationCommittees; 
 	private Map<Long,Product> products;
 	
-	public DatabaseImpl() throws BusinessException {
-		this(true);
-	}
-
-	public DatabaseImpl(boolean initData) throws BusinessException {
+	public DatabaseForTests() throws BusinessException {
 		this.users = new HashMap<>();
 		this.evaluationCommittees = new HashMap<>();
 		this.products = new HashMap<>();
-		if (initData) {
-			initData();
-		}
+		initData();
+		
 	}
 	
 	public Collection<Product> getAllProducts(){
@@ -187,5 +174,4 @@ public class DatabaseImpl implements Database{
 		Evaluation evaluation12 = new Evaluation(product6,user6,0F);
 		
 	}
-
 }

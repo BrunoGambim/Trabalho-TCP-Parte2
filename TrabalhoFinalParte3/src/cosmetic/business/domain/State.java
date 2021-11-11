@@ -26,7 +26,7 @@ public class State {
 		}
 	}
 	
-	public boolean equals(String name) {
+	private boolean equals(String name) {
 		if(getName().equals(name)) {
 			return true;
 		}else {

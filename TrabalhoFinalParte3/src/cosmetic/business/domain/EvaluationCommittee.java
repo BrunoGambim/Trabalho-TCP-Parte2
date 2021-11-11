@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cosmetic.utils.comparators.ProductComparatorById;
 import cosmetic.utils.comparators.UserComparator;
+import cosmetic.utils.log.AllocationLogBuilder;
+import cosmetic.utils.log.LogBuilder;
 
 public class EvaluationCommittee {
 	
 	private String name;
 	private List<Product> submittedProducts;
 	private List<User> committeeMembers;
+	private LogBuilder logBuilder;
+	private static final int MAX_NUMBER_OF_EVALUATORS = 5;
+	private static final int MIN_NUMBER_OF_EVALUATORS = 2;
 	
 	public EvaluationCommittee(String name) {
 		this(name,new ArrayList<Product>(),new ArrayList<User>());
@@ -20,6 +26,7 @@ public class EvaluationCommittee {
 		this.name = name;
 		this.submittedProducts = submittedProducts;
 		this.committeeMembers = committeeMembers;
+		this.logBuilder = new AllocationLogBuilder();
 	}
 	
 	public void submitProducts(Product product) {
@@ -47,8 +54,36 @@ public class EvaluationCommittee {
 		}
 		throw new BusinessException("exception.insufficientCommitteMembers");
 	}
-
-	public boolean areAllProductsAlocated(Integer numberOfEvaluators) {
+	
+	public void allocateProducts(Integer numberOfEvaluators) throws BusinessException {
+		if(!isValidNumberOfEvaluators(numberOfEvaluators)) {
+			throw new BusinessException("exception.invalid.numberOfEvaluators");
+		}
+		List<Product> alocationSet = getSubmittedProducts();
+		this.logBuilder.startLog();
+		try {
+			do {
+				allocateProductList(alocationSet);
+			} while(!areAllProductsAlocated(numberOfEvaluators));
+		} catch (BusinessException be) {
+			this.logBuilder.addExceptionLine(be.getMessage());
+		}
+		this.logBuilder.getText();
+	}
+	
+	private boolean isValidNumberOfEvaluators(Integer numberOfEvaluators) {
+		return numberOfEvaluators >= MIN_NUMBER_OF_EVALUATORS && numberOfEvaluators <= MAX_NUMBER_OF_EVALUATORS;
+	}
+	
+	private void allocateProductList(List<Product> allocationSet) throws BusinessException {
+		Collections.sort(allocationSet,new ProductComparatorById());
+		for(Product product : allocationSet) {
+			User evaluator = product.allocate();
+			this.logBuilder.addLogLine(new String[] {product.getId().toString(),evaluator.getId().toString()});
+		}	
+	}
+	
+	private boolean areAllProductsAlocated(Integer numberOfEvaluators) {
 		for(Product product : submittedProducts) {
 			if(!product.isAllocated(numberOfEvaluators)) {
 				return false;

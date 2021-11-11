@@ -6,7 +6,6 @@ import java.util.List;
 
 import cosmetic.business.ProductManagementService;
 import cosmetic.business.domain.BusinessException;
-import cosmetic.business.domain.Evaluation;
 import cosmetic.business.domain.EvaluationCommittee;
 import cosmetic.business.domain.Product;
 import cosmetic.business.domain.User;
@@ -34,6 +33,12 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 		}else {
 			throw new BusinessException("exception.invalid.product");
 		}
+	}
+	
+	@Override
+	public void allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException {
+		EvaluationCommittee evaluationCommittee = getEvaluationCommitteeByName(committeeName);
+		evaluationCommittee.allocateProducts(numberOfEvaluators);
 	}
 	
 	@Override
