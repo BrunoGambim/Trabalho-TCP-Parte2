@@ -31,9 +31,9 @@ public class EvaluationCommand extends Command{
 			printEvaluatorsList(evaluators);
 			
 			Long evaluatorId = uiUtils.readLong("message.choose.evaluator");
-			Float nota = uiUtils.readFloat("message.choose.rating");
+			Float rating = uiUtils.readFloat("message.choose.rating");
 			
-			productManagementService.evaluateProduct(choosenProduct, evaluatorId, nota);
+			productManagementService.evaluateProduct(choosenProduct, evaluatorId, rating);
 		}else {
 			System.out.println(getTextManager().getText("message.warning.notAllocatedProduct"));
 		}
