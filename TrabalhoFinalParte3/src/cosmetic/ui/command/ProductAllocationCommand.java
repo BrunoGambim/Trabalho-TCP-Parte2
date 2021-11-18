@@ -24,6 +24,7 @@ public class ProductAllocationCommand extends Command{
 		
 		String committeeName = uiUtils.readString("message.choose.committee");
 		Integer numberOfEvaluators = uiUtils.readInteger("message.choose.numberOfEvaluators", MIN_NUMBER_OF_EVALUATORS, MAX_NUMBER_OF_EVALUATORS);
+		
 		EvaluationCommittee evaluationCommittee =this.productManagementService.allocateProducts(committeeName,numberOfEvaluators);
 		printEvaluationCommitteeProducts(evaluationCommittee);
 	}

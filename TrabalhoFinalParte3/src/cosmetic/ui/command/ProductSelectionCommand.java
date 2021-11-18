@@ -24,10 +24,13 @@ public class ProductSelectionCommand extends Command{
 	public void execute() throws BusinessException {
 		UIUtils uiUtils = UIUtils.INSTANCE;
 		String committeeName = uiUtils.readString("message.choose.committee");
+		
 		EvaluationCommittee evaluationCommittee = productManagementService.getEvaluationCommitteeByName(committeeName);
-		List<Product> acceptableProducts = productManagementService.getAcceptableProducts(evaluationCommittee);
+		
+		List<Product> acceptableProducts = productManagementService.getAcceptableProducts(evaluationCommittee);	
 		Collections.sort(acceptableProducts, new DecrescentProductComparatorByRating());
 		printAcceptableList(acceptableProducts);
+		
 		List<Product> unacceptableProducts = productManagementService.getUnacceptableProducts(evaluationCommittee);
 		Collections.sort(acceptableProducts, new CrescentProductComparatorByRating());
 		printUnacceptableList(unacceptableProducts);

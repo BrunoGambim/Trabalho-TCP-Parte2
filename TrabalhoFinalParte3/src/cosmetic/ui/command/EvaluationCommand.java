@@ -22,13 +22,17 @@ public class EvaluationCommand extends Command{
 	public void execute() throws BusinessException {
 		Collection<Product> products =  productManagementService.getAllProdutcs();
 		printProductList(products);
+		
 		Long productId = uiUtils.readLong("message.choose.product");
 		Product choosenProduct = productManagementService.getProductById(productId);
 		List<User> evaluators = choosenProduct.getEvaluators();
+		
 		if(evaluators.size() > 0) {
 			printEvaluatorsList(evaluators);
+			
 			Long evaluatorId = uiUtils.readLong("message.choose.evaluator");
 			Float nota = uiUtils.readFloat("message.choose.rating");
+			
 			productManagementService.evaluateProduct(choosenProduct, evaluatorId, nota);
 		}else {
 			System.out.println(getTextManager().getText("message.warning.notAllocatedProduct"));

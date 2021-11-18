@@ -9,7 +9,7 @@ import cosmetic.business.domain.Product;
 
 public interface ProductManagementService {
 
-	Collection<Product> getAllProdutcs();
+	Collection<Product> getAllProdutcs() throws BusinessException;
 
 	Product getProductById(Long productId) throws BusinessException;
 
