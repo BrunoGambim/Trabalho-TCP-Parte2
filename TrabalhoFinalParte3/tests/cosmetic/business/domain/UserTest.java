@@ -70,8 +70,8 @@ public class UserTest {
 		exceptionRule.expect(BusinessException.class);
 	    exceptionRule.expectMessage("exception.invalid.product");
 		User carla = database.getUserById(10L);
-		Product lorialDDCream = database.getProductById(3L);
-		carla.evaluate(lorialDDCream, 3F);
+		Product revolutionPowder = database.getProductById(3L);
+		carla.evaluate(revolutionPowder, 3F);
 	}
 	
 	@Test
