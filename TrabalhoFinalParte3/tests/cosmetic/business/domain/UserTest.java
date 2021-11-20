@@ -68,7 +68,7 @@ public class UserTest {
 	@Test
 	public void testEvaluateInvalidProduct() throws BusinessException {
 		exceptionRule.expect(BusinessException.class);
-	    exceptionRule.expectMessage("exception.invalid.product");
+	    exceptionRule.expectMessage("exception.notAllocatedForEvaluator");
 		User carla = database.getUserById(10L);
 		Product revolutionPowder = database.getProductById(3L);
 		carla.evaluate(revolutionPowder, 3F);

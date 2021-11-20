@@ -88,7 +88,7 @@ public class User {
 				return evaluation;
 			}
 		}
-		throw new BusinessException("exception.invalid.product");
+		throw new BusinessException("exception.notAllocatedForEvaluator");
 	}
 
 }
