@@ -3,12 +3,17 @@ package cosmetic.business.domain;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import cosmetic.database.Database;
 
 public class ProductTest {
 	Database database;
+	
+	@Rule
+	public ExpectedException exceptionRule = ExpectedException.none();
 	
 	@Before
 	public void setUp() throws Exception {
@@ -45,17 +50,27 @@ public class ProductTest {
 	}
 	
 	@Test
-	public void GetEvalutionsMean() throws BusinessException {
+	public void testGetEvalutionsMean() throws BusinessException {
 		Product avonCCCream = database.getProductById(2L);
 		Product revlonFoundation = database.getProductById(5L);
 		assertEquals((Float) 2.5F,avonCCCream.getEvalutionsMean());
 		assertEquals((Float) (-3F),revlonFoundation.getEvalutionsMean());
 	}
 	
-	@Test(expected = BusinessException.class)
-	public void GetEvalutionsMeanException() throws BusinessException {
+	@Test()
+	public void testIncompleteProductEvaluations() throws BusinessException {
+		exceptionRule.expect(BusinessException.class);
+	    exceptionRule.expectMessage("exception.incompleteProductEvaluations");
 		Product lorialDDCream = database.getProductById(1L);
 		lorialDDCream.getEvalutionsMean();
+	}
+	
+	@Test()
+	public void testNotAllocatedProduct() throws BusinessException {
+		exceptionRule.expect(BusinessException.class);
+	    exceptionRule.expectMessage("exception.notAllocatedProduct");
+		Product laRoche = database.getProductById(7L);
+		laRoche.getEvalutionsMean();
 	}
 	
 	@Test
