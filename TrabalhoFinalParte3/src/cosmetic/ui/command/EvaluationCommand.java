@@ -27,7 +27,7 @@ public class EvaluationCommand extends Command{
 		Product choosenProduct = productManagementService.getProductById(productId);
 		List<User> evaluators = choosenProduct.getEvaluators();
 		
-		if(evaluators.size() > 0) {
+		if(!evaluators.isEmpty()) {
 			printEvaluatorsList(evaluators);
 			
 			Long evaluatorId = uiUtils.readLong("message.choose.evaluator");

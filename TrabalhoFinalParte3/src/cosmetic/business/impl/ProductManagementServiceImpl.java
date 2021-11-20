@@ -23,7 +23,7 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 	@Override
 	public Collection<Product> getAllProdutcs() throws BusinessException {
 		Collection<Product> products = this.database.getAllProducts();
-		if(products.size() > 0) {
+		if(!products.isEmpty()) {
 			return products;
 		}else {
 			throw new BusinessException("exception.noRegisteredProduct");

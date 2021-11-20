@@ -55,6 +55,9 @@ public class Product {
 	}
 	
 	public Float getEvalutionsMean() throws BusinessException {
+		if(this.evaluations.isEmpty()) {
+			throw new BusinessException("exception.notAllocatedProduct");
+		}
 		float mean = 0;
 		for(Evaluation evaluation : this.evaluations) {
 			if(evaluation.getRating() != null) {
@@ -63,12 +66,7 @@ public class Product {
 				throw new BusinessException("exception.incompleteProductEvaluations");
 			}
 		}
-		if(getNumberOfEvaluations() > 0) {
-			mean = mean / getNumberOfEvaluations();
-		}else {
-			throw new BusinessException("exception.notAllocatedProduct");
-		}
-		return mean;
+		return mean = mean / getNumberOfEvaluations();
 	}
 	
 	public boolean isAllocated(int numberOfEvaluators) {
