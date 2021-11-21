@@ -9,7 +9,7 @@ public class AllocationLogBuilder implements LogBuilder{
 	private StringBuffer log;
 	public static final AllocationLogBuilder INSTANCE = new AllocationLogBuilder();
 	
-	public AllocationLogBuilder(){
+	private AllocationLogBuilder(){
 		this.textManager = UIUtils.INSTANCE.getTextManager();
 		startLog();
 	}
