@@ -1,6 +1,5 @@
 package cosmetic.business.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import cosmetic.database.Database;
 public class ProductManagementServiceImpl implements ProductManagementService{
 
 	Database database;
-	private final static int LOWEST_ACCEPTABLE_MEAN = 0;
 	
 	public ProductManagementServiceImpl(Database database) {
 		this.database = database;
@@ -72,25 +70,15 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 	}
 
 	@Override
-	public List<Product> getUnacceptableProducts(EvaluationCommittee evaluationCommittee) throws BusinessException {
-		List<Product> unacceptableProducts = new ArrayList<>();
-		for(Product product : evaluationCommittee.getSubmittedProducts()) {
-			if(product.getEvalutionsMean() < LOWEST_ACCEPTABLE_MEAN) {
-				unacceptableProducts.add(product);
-			} 
-		}
-		return unacceptableProducts;
+	public List<Product> getUnacceptableProducts(String committeeName) throws BusinessException {
+		EvaluationCommittee evaluationCommittee = getEvaluationCommitteeByName(committeeName);
+		return evaluationCommittee.getUnacceptableProducts();
 	}
 
 	@Override
-	public List<Product> getAcceptableProducts(EvaluationCommittee evaluationCommittee) throws BusinessException {
-		List<Product> acceptableProducts = new ArrayList<>();
-		for(Product product : evaluationCommittee.getSubmittedProducts()) {
-			if(product.getEvalutionsMean() >= LOWEST_ACCEPTABLE_MEAN) {
-				acceptableProducts.add(product);
-			} 
-		}
-		return acceptableProducts;
+	public List<Product> getAcceptableProducts(String committeeName) throws BusinessException {
+		EvaluationCommittee evaluationCommittee = getEvaluationCommitteeByName(committeeName);
+		return evaluationCommittee.getAcceptableProducts();
 	}
 
 }

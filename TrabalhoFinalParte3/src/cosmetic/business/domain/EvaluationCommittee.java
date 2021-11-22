@@ -17,6 +17,7 @@ public class EvaluationCommittee {
 	private LogBuilder logBuilder;
 	private static final int MAX_NUMBER_OF_EVALUATORS = 5;
 	private static final int MIN_NUMBER_OF_EVALUATORS = 2;
+	private final static int LOWEST_ACCEPTABLE_MEAN = 0;
 	
 	public EvaluationCommittee(String name) {
 		this(name,new ArrayList<Product>(),new ArrayList<User>());
@@ -90,6 +91,26 @@ public class EvaluationCommittee {
 			}
 		}
 		return true;
-	} 
+	}
+	
+	public List<Product> getAcceptableProducts() throws BusinessException {
+		List<Product> acceptableProducts = new ArrayList<>();
+		for(Product product : getSubmittedProducts()) {
+			if(product.getEvalutionsMean() >= LOWEST_ACCEPTABLE_MEAN) {
+				acceptableProducts.add(product);
+			} 
+		}
+		return acceptableProducts;
+	}
+	
+	public List<Product> getUnacceptableProducts() throws BusinessException {
+		List<Product> unacceptableProducts = new ArrayList<>();
+		for(Product product : getSubmittedProducts()) {
+			if(product.getEvalutionsMean() < LOWEST_ACCEPTABLE_MEAN) {
+				unacceptableProducts.add(product);
+			} 
+		}
+		return unacceptableProducts;
+	}
 	
 }

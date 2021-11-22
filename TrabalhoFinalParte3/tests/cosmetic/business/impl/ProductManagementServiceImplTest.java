@@ -42,34 +42,20 @@ public class ProductManagementServiceImplTest {
 	
 	@Test
 	public void testGetAcceptableProducts() throws BusinessException {
-		EvaluationCommittee SPFB = database.getEvaluationCommitteeByName("SPF B");
-		Product avonCC = database.getProductById(2L);
 		Product revolutionPowder = database.getProductById(3L);
 		Product maybelline = database.getProductById(4L);
-		Product revlonFoundation = database.getProductById(5L);
-		Product niveaMatte = database.getProductById(6L);
-		List<Product> products =  productManagementService.getAcceptableProducts(SPFB);
-		assertTrue(products.contains(avonCC));
+		List<Product> products =  productManagementService.getAcceptableProducts("SPF B");
 		assertTrue(products.contains(revolutionPowder));
 		assertTrue(products.contains(maybelline));
-		assertFalse(products.contains(revlonFoundation));
-		assertFalse(products.contains(niveaMatte));
 	}
 
 	@Test
 	public void testGetUnacceptableProducts() throws BusinessException {
-		EvaluationCommittee SPFB = database.getEvaluationCommitteeByName("SPF B");
 		Product avonCC = database.getProductById(2L);
-		Product revolutionPowder = database.getProductById(3L);
-		Product maybelline = database.getProductById(4L);
-		Product revlonFoundation = database.getProductById(5L);
 		Product niveaMatte = database.getProductById(6L);
-		List<Product> products =  productManagementService.getUnacceptableProducts(SPFB);
-		assertTrue(products.contains(revlonFoundation));
+		List<Product> products =  productManagementService.getUnacceptableProducts("SPF B");
 		assertTrue(products.contains(niveaMatte));
 		assertFalse(products.contains(avonCC));
-		assertFalse(products.contains(revolutionPowder));
-		assertFalse(products.contains(maybelline));
 	}
 
 }

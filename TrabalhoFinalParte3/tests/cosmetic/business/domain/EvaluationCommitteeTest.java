@@ -2,6 +2,8 @@ package cosmetic.business.domain;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -94,6 +96,38 @@ public class EvaluationCommitteeTest {
 	public void testTooFewEvaluatorsException() throws BusinessException {
 		EvaluationCommittee SPFC = database.getEvaluationCommitteeByName("SPF A");
 		SPFC.allocateProducts(1);
+	}
+	
+	@Test
+	public void testGetAcceptableProducts() throws BusinessException {
+		EvaluationCommittee SPFB = database.getEvaluationCommitteeByName("SPF B");
+		Product avonCC = database.getProductById(2L);
+		Product revolutionPowder = database.getProductById(3L);
+		Product maybelline = database.getProductById(4L);
+		Product revlonFoundation = database.getProductById(5L);
+		Product niveaMatte = database.getProductById(6L);
+		List<Product> products =  SPFB.getAcceptableProducts();
+		assertTrue(products.contains(avonCC));
+		assertTrue(products.contains(revolutionPowder));
+		assertTrue(products.contains(maybelline));
+		assertFalse(products.contains(revlonFoundation));
+		assertFalse(products.contains(niveaMatte));
+	}
+
+	@Test
+	public void testGetUnacceptableProducts() throws BusinessException {
+		EvaluationCommittee SPFB = database.getEvaluationCommitteeByName("SPF B");
+		Product avonCC = database.getProductById(2L);
+		Product revolutionPowder = database.getProductById(3L);
+		Product maybelline = database.getProductById(4L);
+		Product revlonFoundation = database.getProductById(5L);
+		Product niveaMatte = database.getProductById(6L);
+		List<Product> products =  SPFB.getUnacceptableProducts();
+		assertTrue(products.contains(revlonFoundation));
+		assertTrue(products.contains(niveaMatte));
+		assertFalse(products.contains(avonCC));
+		assertFalse(products.contains(revolutionPowder));
+		assertFalse(products.contains(maybelline));
 	}
 	
 }

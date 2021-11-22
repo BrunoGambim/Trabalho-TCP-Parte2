@@ -17,9 +17,9 @@ public interface ProductManagementService {
 
 	EvaluationCommittee getEvaluationCommitteeByName(String committeeName) throws BusinessException;
 
-	List<Product> getUnacceptableProducts(EvaluationCommittee evaluationCommittee) throws BusinessException;
+	List<Product> getUnacceptableProducts(String committeeName) throws BusinessException;
 
-	List<Product> getAcceptableProducts(EvaluationCommittee evaluationCommittee) throws BusinessException;
+	List<Product> getAcceptableProducts(String committeeName) throws BusinessException;
 
 	EvaluationCommittee allocateProducts(String committeeName, Integer numberOfEvaluators) throws BusinessException;
 
