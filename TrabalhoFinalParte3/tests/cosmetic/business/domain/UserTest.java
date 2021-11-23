@@ -19,7 +19,43 @@ public class UserTest {
 	public void setUp() throws Exception {
 		this.database = new DatabaseForTests();
 	}
+	
+	@Test
+	public void testGetId() {
+		State RS = new State("RS");
+		User userId1 = new User(1L,"Named 1",RS);
+		User userId2 = new User(2L,"Named 2",RS);
+		assertEquals((Long) 1L, userId1.getId());
+		assertEquals((Long) 2L, userId2.getId());
+	}
+	
+	@Test
+	public void testGetName() {
+		State RS = new State("RS");
+		User userId1 = new User(1L,"Named 1",RS);
+		User userId2 = new User(2L,"Named 2",RS);
+		assertEquals("Named 1", userId1.getName());
+		assertEquals("Named 2", userId2.getName());
+	}
 
+	@Test
+	public void testAddEvaluation() {
+		User joao = database.getUserById(1L);
+		Product laRoche = database.getProductById(7L);
+		assertEquals((Integer) 1, joao.getNumberOfEvaluations());
+		new Evaluation(laRoche, joao);
+		assertEquals((Integer) 2, joao.getNumberOfEvaluations());
+	}
+	
+	@Test
+	public void testAddProductCategory() {
+		User joao = database.getUserById(1L);
+		ProductCategory productCategory = new ProductCategory("new category");
+		assertFalse(joao.isInterestedIn(productCategory));
+		joao.addProductCategory(productCategory);
+		assertTrue(joao.isInterestedIn(productCategory));
+	}
+	
 	@Test
 	public void testGetNumberOfEvaluations() {
 		User joao = database.getUserById(1L);

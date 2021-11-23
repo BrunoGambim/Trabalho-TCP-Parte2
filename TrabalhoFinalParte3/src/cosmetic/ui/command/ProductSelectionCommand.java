@@ -6,7 +6,6 @@ import java.util.List;
 
 import cosmetic.business.ProductManagementService;
 import cosmetic.business.domain.BusinessException;
-import cosmetic.business.domain.EvaluationCommittee;
 import cosmetic.business.domain.Product;
 import cosmetic.ui.UIUtils;
 import cosmetic.utils.comparators.CrescentProductComparatorByRating;

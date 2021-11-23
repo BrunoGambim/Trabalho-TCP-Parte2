@@ -8,12 +8,8 @@ public class ProductCategory {
 		this.name = name;
 	}
 
-	public String getName() {
+	private String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	@Override

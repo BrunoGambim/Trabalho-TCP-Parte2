@@ -16,6 +16,43 @@ public class EvaluationCommitteeTest {
 	public void setUp() throws Exception {
 		this.database = new DatabaseForTests();
 	}
+	
+	@Test
+	public void testGetName() {
+		EvaluationCommittee committeNamed1 = new EvaluationCommittee("Named 1");
+		EvaluationCommittee committeNamed2 = new EvaluationCommittee("Named 2");
+		assertEquals("Named 1", committeNamed1.getName());
+		assertEquals("Named 2", committeNamed2.getName());
+	}
+	
+	@Test
+	public void testGetSubmittedProducts() {
+		EvaluationCommittee SPFA = database.getEvaluationCommitteeByName("SPF A");
+		Product lorialDDCream = database.getProductById(1L);
+		Product laRoche = database.getProductById(7L);
+		assertTrue(SPFA.getSubmittedProducts().contains(laRoche));
+		assertFalse(SPFA.getSubmittedProducts().contains(lorialDDCream));
+	}
+	
+	@Test
+	public void testSubmitProducts() {
+		EvaluationCommittee SPFA = database.getEvaluationCommitteeByName("SPF A");
+		Product lorialDDCream = database.getProductById(1L);
+		assertFalse(SPFA.getSubmittedProducts().contains(lorialDDCream));
+		SPFA.submitProducts(lorialDDCream);
+		assertTrue(SPFA.getSubmittedProducts().contains(lorialDDCream));
+	}
+	
+	@Test
+	public void addMember() throws BusinessException {
+		EvaluationCommittee SPFA = database.getEvaluationCommitteeByName("SPF A");
+		Product yvesRocher = database.getProductById(8L);
+		User joana = database.getUserById(4L);
+		User pedro = database.getUserById(9L);
+		assertTrue(joana.equals(SPFA.getValidMember(yvesRocher)));
+		SPFA.addMember(pedro);
+		assertTrue(pedro.equals(SPFA.getValidMember(yvesRocher)));
+	}
 
 	@Test
 	public void testGetValidMember() throws BusinessException {
@@ -88,14 +125,14 @@ public class EvaluationCommitteeTest {
 
 	@Test(expected = BusinessException.class)
 	public void testTooManyEvaluatorsException() throws BusinessException {
-		EvaluationCommittee SPFC = database.getEvaluationCommitteeByName("SPF A");
-		SPFC.allocateProducts(6);
+		EvaluationCommittee SPFA = database.getEvaluationCommitteeByName("SPF A");
+		SPFA.allocateProducts(6);
 	}
 	
 	@Test(expected = BusinessException.class)
 	public void testTooFewEvaluatorsException() throws BusinessException {
-		EvaluationCommittee SPFC = database.getEvaluationCommitteeByName("SPF A");
-		SPFC.allocateProducts(1);
+		EvaluationCommittee SPFA = database.getEvaluationCommitteeByName("SPF A");
+		SPFA.allocateProducts(1);
 	}
 	
 	@Test

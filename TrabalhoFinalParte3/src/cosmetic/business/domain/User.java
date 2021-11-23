@@ -39,7 +39,7 @@ public class User {
 		return evaluations.size();
 	}
 	
-	public State getState() {
+	private State getState() {
 		return state;
 	}
 

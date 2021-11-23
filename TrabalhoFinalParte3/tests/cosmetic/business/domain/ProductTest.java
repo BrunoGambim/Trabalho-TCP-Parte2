@@ -19,7 +19,47 @@ public class ProductTest {
 	public void setUp() throws Exception {
 		this.database = new DatabaseForTests();
 	}
+	
+	@Test
+	public void testGetId() {
+		EvaluationCommittee SPFA = database.getEvaluationCommitteeByName("SPF A");
+		User requester = database.getUserById(1L);
+		ProductCategory CCCream = new ProductCategory("CC Cream");
+		Product productId1 = new Product(1L, "Named 1", requester, SPFA, CCCream);
+		Product productId2 = new Product(2L, "Named 2", requester, SPFA, CCCream);
+		assertEquals((Long) 1L, productId1.getId());
+		assertEquals((Long) 2L, productId2.getId());
+	}
+	
+	@Test
+	public void testGetName() {
+		EvaluationCommittee SPFA = database.getEvaluationCommitteeByName("SPF A");
+		User requester = database.getUserById(1L);
+		ProductCategory CCCream = new ProductCategory("CC Cream");
+		Product productId1 = new Product(1L, "Named 1", requester, SPFA, CCCream);
+		Product productId2 = new Product(2L, "Named 2", requester, SPFA, CCCream);
+		assertEquals("Named 1", productId1.getName());
+		assertEquals("Named 2", productId2.getName());
+	}
+	
+	@Test
+	public void testGetEvaluators() {
+		Product lorialDDCream = database.getProductById(1L);
+		User joao = database.getUserById(1L);
+		User natasha = database.getUserById(8L);
+		assertTrue(lorialDDCream.getEvaluators().contains(natasha));
+		assertFalse(lorialDDCream.getEvaluators().contains(joao));
+	}
 
+	@Test
+	public void testAddEvaluation() {
+		User joao = database.getUserById(1L);
+		Product laRoche = database.getProductById(7L);
+		assertEquals((Integer) 0, laRoche.getNumberOfEvaluations());
+		new Evaluation(laRoche, joao);
+		assertEquals((Integer) 1, laRoche.getNumberOfEvaluations());
+	}
+	
 	@Test
 	public void testCanBeEvaluatedBy() {
 		Product lorialDDCream = database.getProductById(1L);
