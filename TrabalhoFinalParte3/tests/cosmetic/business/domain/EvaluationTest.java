@@ -25,6 +25,8 @@ public class EvaluationTest {
 		assertEquals((Integer) 2, joao.getNumberOfEvaluations());
 		assertEquals((Integer) 1, laRoche.getNumberOfEvaluations());
 		assertEquals((Float) 2F, evaluation.getRating());
+		assertEquals(joao, evaluation.getEvaluator());
+		assertEquals(laRoche, evaluation.getProduct());
 	}
 	
 	@Test(expected = BusinessException.class)

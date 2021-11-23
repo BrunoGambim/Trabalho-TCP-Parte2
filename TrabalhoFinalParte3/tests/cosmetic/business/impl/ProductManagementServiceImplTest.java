@@ -2,6 +2,7 @@ package cosmetic.business.impl;
 
 import static org.junit.Assert.*;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Before;
@@ -10,7 +11,6 @@ import org.junit.Test;
 import cosmetic.business.ProductManagementService;
 import cosmetic.business.domain.BusinessException;
 import cosmetic.business.domain.DatabaseForTests;
-import cosmetic.business.domain.EvaluationCommittee;
 import cosmetic.business.domain.Product;
 import cosmetic.database.Database;
 
@@ -22,6 +22,32 @@ public class ProductManagementServiceImplTest {
 	public void setUp() throws Exception {
 		database = new DatabaseForTests(); 
 		productManagementService = new ProductManagementServiceImpl(database);
+	}
+	
+	@Test
+	public void testGetAllProdutcs() throws BusinessException {
+		Product lorialDDCream = database.getProductById(1L);
+		Product laRoche = database.getProductById(7L);
+		Product naturaSPF20 = database.getProductById(11L);
+		Collection<Product> allProducts = productManagementService.getAllProdutcs();
+		assertTrue(allProducts.contains(lorialDDCream));
+		assertTrue(allProducts.contains(laRoche));
+		assertTrue(allProducts.contains(naturaSPF20));
+	}
+	
+	@Test
+	public void testGetProductById() throws BusinessException {
+		Product expectedLorialDDCream = database.getProductById(1L);
+		Product expectedLaRoche = database.getProductById(7L);
+		Product lorialDDCream = productManagementService.getProductById(1L);
+		Product laRoche = productManagementService.getProductById(7L);
+		assertEquals(expectedLorialDDCream, lorialDDCream);
+		assertEquals(expectedLaRoche, laRoche);
+	}
+	
+	@Test(expected = BusinessException.class)
+	public void testGetInvalidProductById() throws BusinessException {
+		Product nonexistentProduct = productManagementService.getProductById(13L);
 	}
 
 	@Test

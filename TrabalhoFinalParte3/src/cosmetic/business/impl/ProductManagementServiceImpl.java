@@ -45,8 +45,7 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 		return evaluationCommittee;
 	}
 	
-	@Override
-	public EvaluationCommittee getEvaluationCommitteeByName(String committeeName) throws BusinessException{
+	private EvaluationCommittee getEvaluationCommitteeByName(String committeeName) throws BusinessException{
 		EvaluationCommittee evaluationCommittee = this.database.getEvaluationCommitteeByName(committeeName);
 		if(evaluationCommittee != null) {
 			return evaluationCommittee;
