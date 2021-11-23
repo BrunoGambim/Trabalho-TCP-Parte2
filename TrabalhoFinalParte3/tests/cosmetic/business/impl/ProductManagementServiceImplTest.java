@@ -68,11 +68,11 @@ public class ProductManagementServiceImplTest {
 	
 	@Test
 	public void testGetAcceptableProducts() throws BusinessException {
-		Product revolutionPowder = database.getProductById(3L);
 		Product maybelline = database.getProductById(4L);
+		Product revlonFoundation = database.getProductById(5L);
 		List<Product> products =  productManagementService.getAcceptableProducts("SPF B");
-		assertTrue(products.contains(revolutionPowder));
 		assertTrue(products.contains(maybelline));
+		assertFalse(products.contains(revlonFoundation));
 	}
 
 	@Test
