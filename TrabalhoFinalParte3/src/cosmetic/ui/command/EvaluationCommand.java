@@ -12,7 +12,6 @@ import cosmetic.ui.UIUtils;
 public class EvaluationCommand extends Command{
 
 	ProductManagementService productManagementService;
-	private UIUtils uiUtils = UIUtils.INSTANCE;
 	
 	public EvaluationCommand(ProductManagementService productManagementService) {
 		this.productManagementService = productManagementService;
@@ -20,6 +19,7 @@ public class EvaluationCommand extends Command{
 
 	@Override
 	public void execute() throws BusinessException {
+		UIUtils uiUtils = UIUtils.INSTANCE;
 		Collection<Product> products =  productManagementService.getAllProdutcs();
 		printProductList(products);
 		

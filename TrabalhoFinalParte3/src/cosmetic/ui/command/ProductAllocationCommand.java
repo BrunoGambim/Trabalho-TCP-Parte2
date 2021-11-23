@@ -9,7 +9,8 @@ import cosmetic.business.domain.Product;
 import cosmetic.business.domain.User;
 
 public class ProductAllocationCommand extends Command{
-	
+	private static final int MIN_NUMBER_OF_EVALUATORS = 2;
+	private static final int MAX_NUMBER_OF_EVALUATORS = 5;
 	private ProductManagementService productManagementService;
 
 	public ProductAllocationCommand(ProductManagementService productManagementService) {
@@ -18,8 +19,6 @@ public class ProductAllocationCommand extends Command{
 
 	@Override
 	public void execute() throws BusinessException{
-		final int MIN_NUMBER_OF_EVALUATORS = 2;
-		final int MAX_NUMBER_OF_EVALUATORS = 5;
 		UIUtils uiUtils = UIUtils.INSTANCE;
 		
 		String committeeName = uiUtils.readString("message.choose.committee");

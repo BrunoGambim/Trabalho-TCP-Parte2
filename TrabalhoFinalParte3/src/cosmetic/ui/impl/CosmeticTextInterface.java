@@ -17,6 +17,7 @@ public class CosmeticTextInterface implements CosmeticInterface{
 	
 	protected final Map<String, UIAction> actions;
 	private static final String EXIT = "E";
+	private static final UIUtils UIUTILS = UIUtils.INSTANCE;
 	
 	public CosmeticTextInterface(ProductManagementService productManagementService) {
 		this.actions = new LinkedHashMap<>();
@@ -31,26 +32,26 @@ public class CosmeticTextInterface implements CosmeticInterface{
 
 	@Override
 	public void createAndShowUI() {
-		UIUtils uiUtils = UIUtils.INSTANCE;
 		String commandKey = null;
 		do {
-			printMenu(UIUtils.INSTANCE.getTextManager());
-			commandKey = uiUtils.readString(null);
+			printMenu();
+			commandKey = UIUTILS.readString(null);
 			UIAction command = actions.get(commandKey);
 			if (command != null) {
 				try {
 					command.execute();
 				} catch (BusinessException be) {
-					System.out.println(uiUtils.getTextManager().getText(
+					System.out.println(UIUTILS.getTextManager().getText(
 							be.getMessage()));
 				} catch (Exception e) {
-					uiUtils.handleUnexceptedError(e);
+					UIUTILS.handleUnexceptedError(e);
 				}
 			}
 		} while (!EXIT.equals(commandKey));
 	}
 	
-	private void printMenu(TextManager textManager) {
+	private void printMenu() {
+		TextManager textManager = UIUTILS.getTextManager();
 		StringBuffer sb = new StringBuffer();
 		sb.append(textManager.getText("message.options", EXIT, false))
 				.append(":\n");

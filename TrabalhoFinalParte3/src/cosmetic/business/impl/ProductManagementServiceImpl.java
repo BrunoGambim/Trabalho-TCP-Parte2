@@ -63,10 +63,12 @@ public class ProductManagementServiceImpl implements ProductManagementService{
 	
 	private User getUserById(Long id) throws BusinessException {
 		User user = this.database.getUserById(id);
-		if(user == null) {
+		if(user != null) {
+			return user;
+		}else {
 			throw new BusinessException("exception.invalid.evaluator");
 		}
-		return user;
+		
 	}
 
 	@Override
